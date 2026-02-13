@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinematic Ultra Final v5</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI, sans-serif;}
+body{background:radial-gradient(circle at top,#14001f,#000);color:#fff;overflow:hidden;}
+.page{position:fixed;top:0;left:0;width:100%;height:100vh;display:none;flex-direction:column;justify-content:center;align-items:center;padding:25px;text-align:center;transition:all .6s ease;}
+.page.active{display:flex;animation:fade .8s ease;}
+@keyframes fade{from{opacity:0;transform:scale(.96);}to{opacity:1;transform:scale(1);}}
+h1,h2{margin-bottom:20px;text-shadow:0 0 25px #ff2fdc;}
+button{padding:12px 28px;border:none;border-radius:30px;background:#00b0ff;color:#000;font-weight:bold;cursor:pointer;margin:12px;transition:.3s;}
+button:hover{transform:scale(1.08);}
+.password-box{background:rgba(255,255,255,0.05);padding:30px;border-radius:20px;backdrop-filter:blur(10px);box-shadow:0 0 40px rgba(255,0,150,.3);display:flex;flex-direction:column;align-items:center;}
+input{padding:14px;border-radius:12px;border:none;margin:15px 0;width:240px;text-align:center;font-size:16px;}
+.name-container{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:25px;}
+.name-box{width:115px;height:65px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:linear-gradient(45deg,#ff2fdc,#7b2cff);cursor:pointer;font-weight:bold;transition:.4s;}
+.name-box.open{background:#000;color:#ff9ae6;transform:scale(1.1);box-shadow:0 0 25px #ff2fdc;}
+.song-text{max-width:300px;line-height:1.6;opacity:.9;}
+.loveBox{width:220px;height:220px;border:3px dashed #ff2fdc;display:flex;justify-content:center;align-items:center;cursor:pointer;margin:25px;font-size:20px;transition:.4s;}
+.loveBox:hover{transform:scale(1.05);box-shadow:0 0 25px #ff2fdc;}
+#loveText{max-width:320px;line-height:1.6;margin-top:15px;}
+.heart{position:fixed;bottom:0;animation:fly 3s linear forwards;}
+@keyframes fly{to{transform:translateY(-900px);opacity:0;}}
+.page7-images{display:flex;gap:20px;}
+.frame{width:170px;height:170px;border:4px solid #ff2fdc;overflow:hidden;position:relative;border-radius:15px;}
+.frame img{width:100%;height:100%;object-fit:cover;}
+.homeBtn{position:absolute;bottom:20px;right:20px;}
+</style>
+</head>
+<body><!-- PAGE 0 --><div class="page active" id="page0">
+<div class="password-box">
+<h2>🔐 Enter Password</h2>
+<input type="password" id="pass" placeholder="Enter Password">
+<button onclick="checkPass()">Enter</button>
+</div>
+</div><!-- PAGE 1 --><div class="page" id="page1">
+<h1>Unkhown Day<br>to<br>Bristy</h1>
+<p style="opacity:.8">A small cinematic journey</p>
+<button onclick="go(2)">Start</button>
+</div><!-- PAGE 2 --><div class="page" id="page2">
+<h2>Tumar Moto Meye Koto Dekhlam But Tumake Ar Dekhlam Na</h2>
+<p style="max-width:300px;line-height:1.6;">Koto kore bollam akbar meet koro ar koto kahani je korla. Tumar akhono bujlam na.....<br>Next e jao tumar jonno Surprise ahce ❤️‍🩹</p>
+<button onclick="go(3)">Next</button>
+</div><!-- PAGE 3 --><div class="page" id="page3">
+<h2>Tap All Boxes</h2>
+<div class="name-container">
+<div class="name-box" data-name="Pookii 🥺">Tap</div>
+<div class="name-box" data-name="Honey 🍒">Tap</div>
+<div class="name-box" data-name="Sweetheart 💗">Tap</div>
+<div class="name-box" data-name="Flower 🌷">Tap</div>
+<div class="name-box" data-name="Sundori 💙">Tap</div>
+<div class="name-box" data-name="Moon 🌙">Tap</div>
+</div>
+<button id="next3" style="display:none" onclick="go(4)">Next</button>
+</div><!-- PAGE 4 --><div class="page" id="page4">
+<h2>I Hate You and Also This Song 😑</h2>
+<p class="song-text">This song will play while you feel the moment...</p>
+<audio id="song4" src="song4.m4a" loop></audio>
+<button onclick="go(5)">Next</button>
+</div><!-- PAGE 5 --><div class="page" id="page5">
+<h2>💌 Love Box</h2>
+<div class="loveBox" onclick="showLove()">Tap Here</div>
+<div id="loveText"></div>
+<audio id="bgMusic5" src="bgMusic.m4a" loop></audio>
+<button onclick="go(6)">Next</button>
+</div><!-- PAGE 6 --><div class="page" id="page6">
+<h2>Best Of Luck And Enjoy Your Fucking Life.</h2>
+<p class="song-text">Best Of Luck And Enjoy Your Fucking Life.</p>
+<audio id="song6" src="song6.m4a" loop></audio>
+<button onclick="go(7)">Next</button>
+</div><!-- PAGE 7 --><div class="page" id="page7">
+<div class="page7-images">
+<div class="frame"><img src="img1.jpg"></div>
+<div class="frame"><img src="img2.jpg"></div>
+<div class="frame"><img src="img3.jpg"></div>
+</div>
+<button class="homeBtn" onclick="go(0)">Home</button>
+</div><script>
+function checkPass(){
+if(document.getElementById('pass').value==='BABY') go(1);
+else alert('Wrong Password');
+}
+
+function go(num){
+let allPages=document.querySelectorAll('.page');
+allPages.forEach(p=>p.classList.remove('active'));
+document.getElementById('page'+num).classList.add('active');
+
+// Music control
+let s4=document.getElementById('song4');
+let s5=document.getElementById('bgMusic5');
+let s6=document.getElementById('song6');
+// Pause all first
+s4.pause(); s5.pause(); s6.pause();
+if(num===4) s4.play().catch(()=>{});
+if(num===5) s5.play().catch(()=>{});
+if(num===6) s6.play().catch(()=>{});
+}
+
+let opened=0;
+document.querySelectorAll('.name-box').forEach(box=>{
+box.addEventListener('click',()=>{
+if(!box.classList.contains('open')){
+box.classList.add('open');
+box.innerHTML=box.dataset.name;
+opened++;
+if(opened===6) document.getElementById('next3').style.display='block';
+}
+});
+});
+
+function showLove(){
+document.getElementById('loveText').innerHTML='Well.This is my day 361 and still tumi amar kothao to theke gecho.Akhon tumar nam sunlei kn jani sojjo hoi na.life e kaoke ato valobashini except you.she kotha vablei nijeke hate kori.Chi amar mon kototai Rochihin.Sorry to Say tumi akhon jodi kono pular suiyeo thako I Don\'t fucking care.';
+for(let i=0;i<30;i++){
+let h=document.createElement('div');
+h.className='heart';
+h.style.left=Math.random()*100+'%';
+h.innerHTML='❤️';
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),3000);
+}
+}
+</script></body>
+</html>
